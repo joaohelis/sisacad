@@ -1,0 +1,23 @@
+#{extends 'main.html' /}
+#{set title:'Detalhes' /}
+
+<div class="card mb-3">
+  	<div class="card-header">
+    	<i class="fa fa-table"></i> Detalhes do Professor</div>
+  	<div class="card-body">
+  		#{if professor.foto?.exists()}
+  			<img height="150px" width="150px" src="@{Professores.fotoProfessor(professor.id)}"><br>
+  		#{/if}
+		<b>Nome:</b> ${professor.nome}<br>
+		<b>E-mail:</b> ${professor.email}<br>
+		<b>Data de Nascimento:</b> ${professor.dataNascimento?.format('dd MMMM yyyy')}<br>
+		<b>Departamento:</b> ${professor.departamento}<br>
+		<br>
+		<div class="">
+			<a class="btn btn-primary" href="@{Professores.editar(professor.id)}">Editar</a>
+        	<a class="btn btn-danger" href="@{Professores.remover(professor.id)}">Remover</a>
+        </div>
+        <br>
+        #{verProfessores /}
+	</div>
+</div>

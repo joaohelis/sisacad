@@ -1,0 +1,64 @@
+#{extends 'main.html' /}
+#{set title:'Formulário' /}
+
+%{
+	String tituloAcaoForm = professor.id == null? "Cadastrar":"Editar"; 
+	String tituloForm = professor.id == null? "Cadastro":"Edição";
+}%
+
+<div class="card mb-3">
+	  <div class="card-header">
+	    <i class="fa fa-table"></i> ${tituloForm} de Professor</div>
+	  <div class="card-body">
+          
+		<form action="@{Professores.salvar}" method="post" enctype="multipart/form-data">
+		   
+		   <input type="hidden" value="${professor?.id}" name="professor.id">
+		   
+		   #{if professor.foto?.exists()}
+		   	<img height="150px" width="150px" src="@{Professores.fotoProfessor(professor.id)}"><br>
+		   	<div class="form-group">
+	            <div class="form-check">
+	              <label class="form-check-label">
+	              	<input class="form-check-input" type="checkbox" name="excluirFoto">Excluir Imagem
+	              </label>
+	            </div>
+	        </div>
+		   #{/if}
+		   <br>
+		   
+		   <input type="file" value="${professor?.foto}" name="professor.foto">
+		   
+			<div class="form-group">
+			   <label for="nome">Nome</label>
+			   <input class="form-control" id="nome" type="text" value="${professor?.nome}" name="professor.nome">
+			</div>
+			
+			<div class="form-group">
+			   <label for="email">Email</label>
+			   <input class="form-control" id="email" type="text" value="${professor?.email}" name="professor.email">
+			</div>
+			
+		    <div class="form-group">
+			 	<label>Data de Nascimento:</label>
+			 	<input type="date" name="professor.dataNascimento" value="${professor?.dataNascimento}" class="form-control">
+			</div>
+			
+			<div class="form-group">
+			   <label for="departamento">Departamento</label>
+			   <select name="professor.departamento.id">
+			   		#{list items:departamentos, as:'departamento'}
+			   			<option value="${departamento.id}" 
+			   			${(professor?.id !=null && professor?.departamento.id == departamento.id)? 'selected':'' }>${departamento.nome}</option>
+			   		#{/list}
+			   </select>
+			</div>
+			
+			<input class="btn btn-primary btn-block" type="submit" value="${tituloAcaoForm}">
+			
+		</form>
+		
+		#{verProfessores /}
+	</div>
+</div>
+

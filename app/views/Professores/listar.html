@@ -1,0 +1,38 @@
+#{extends 'main.html' /}
+#{set title:'Listagem de Clientes' /}
+
+<div class="card mb-3">
+ <div class="card-header">
+   <i class="fa fa-user"></i> Listagem de Professores</div>
+ <div class="card-body">
+ 
+ 	 <form action="@{Professores.buscar}">
+ 	 	<input class="form" type="text" name="busca">
+ 	 	<input class="btn btn-primary" type="submit" value="buscar">
+ 	 </form>
+    
+     <table class="table dataTable" id="">
+       <thead>
+         <tr><th rowspan="1" colspan="1">#ID</th>
+         <th rowspan="1" colspan="1">Nome</th>
+         <th rowspan="1" colspan="1">E-mail</th>
+         <th>Ações</th>
+       </thead>
+       <tbody>
+	#{list items:professores, as:'professor'}
+		<tr role="row">
+           <td>${professor.id}</td>
+           <td>${professor.nome}</td>
+           <td>${professor.email}</td>
+           <td>
+           		<a class="btn btn-info" href="@{Professores.detalhes(professor.id)}">Detalhes</a>
+           		<a class="btn btn-primary" href="@{Professores.editar(professor.id)}">Editar</a>
+           	  	<a class="btn btn-danger" href="@{Professores.remover(professor.id)}">Remover</a>
+           	</td>
+         </tr>
+	#{/list}
+	</tbody>
+    </table>
+    <a class="btn btn-info" href="@{Professores.form}">Cadastrar Professor</a>
+  </div>
+</div>

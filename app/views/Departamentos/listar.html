@@ -1,0 +1,24 @@
+#{extends 'main.html' /}
+#{set title:'Listagem de Clientes' /}
+
+<div class="card mb-3">
+ <div class="card-header">
+   <i class="fa fa-user"></i> Listagem de Departamentos</div>
+ <div class="card-body">
+ 
+     <table class="table dataTable" id="">
+       <thead>
+         <tr><th rowspan="1" colspan="1">#ID</th>
+         <th rowspan="1" colspan="1">Nome</th>
+       </thead>
+       <tbody>
+	#{list items:departamentos, as:'departamento'}
+		<tr role="row">
+           <td>${departamento.id}</td>
+           <td>${departamento.nome}</td>
+         </tr>
+	#{/list}
+	</tbody>
+    </table>
+  </div>
+</div>
