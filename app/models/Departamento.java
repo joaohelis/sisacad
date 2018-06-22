@@ -16,5 +16,8 @@ public class Departamento extends Model{
 	public String toString() {
 		return nome;
 	}
-
+	
+	@OneToMany(mappedBy="departamento")
+	public List<Professor> professores;
+	
 }

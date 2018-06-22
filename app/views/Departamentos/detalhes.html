@@ -1,0 +1,44 @@
+#{extends 'main.html' /}
+#{set title:'Detalhes' /}
+
+<div class="card mb-3">
+  	<div class="card-header">
+    	<i class="fa fa fa-institution"></i> Detalhes do Departamento</div>
+  	<div class="card-body">
+		<b>Nome:</b> ${departamento.nome}<br>
+		<br>
+		<div class="card mb-3">
+			<div class="card-header">
+		    	<b>Professores associados ao Departamento</b>
+		    </div>
+		  	<div class="card-body">
+		  		#{if departamento?.professores}
+				<table class="table table-striped">
+			       	<thead >
+				         <th rowspan="1" colspan="1">Nome do professor</th>
+			       	</thead>
+			       	<tbody> 
+						#{list items:departamento.professores, as:'professor'}
+						<tr role="row">
+				           <td><a href="@{Professores.detalhes(professor.id)}">${professor.nome}</a></td>
+				        </tr>
+						#{/list}
+					</tbody>
+		    	</table>
+		    	#{/if}
+		    	#{else}
+		    		<p>O departamento não tem nenhum professor associado.</p>
+		    	#{/else}
+			</div>
+		</div>
+		<div class="">
+			<a class="btn btn-primary" href="@{Departamentos.editar(departamento.id)}">Editar</a>
+		*{
+        	<a class="btn btn-danger" href="@{Departamentos.remover(departamento.id)}">Remover</a>
+        }*
+        </div>
+        <br>
+        <br>
+		<a href="@{Departamentos.listar}">Ver todos os Departamentos</a>
+	</div>
+</div>

@@ -3,19 +3,26 @@
 
 <div class="card mb-3">
  <div class="card-header">
-   <i class="fa fa-user"></i> Listagem de Departamentos</div>
+   <i class="fa fa fa-institution"></i> Listagem de Departamentos</div>
  <div class="card-body">
  
      <table class="table dataTable" id="">
        <thead>
          <tr><th rowspan="1" colspan="1">#ID</th>
          <th rowspan="1" colspan="1">Nome</th>
+         <th rowspan="1" colspan="1">Professores</th>
+         <th>Ações</th>
        </thead>
        <tbody>
 	#{list items:departamentos, as:'departamento'}
 		<tr role="row">
            <td>${departamento.id}</td>
            <td>${departamento.nome}</td>
+           <td>${departamento.professores.size()}</td>
+           <td>
+           		<a class="btn btn-info" title='Detalhes' href="@{Departamentos.detalhes(departamento.id)}"><i class="fa fa-eye"></i></a>
+           		<a class="btn btn-primary" title='Editar' href="@{Departamentos.editar(departamento.id)}"><i class="fa fa-edit"></i></a>
+           </td>
          </tr>
 	#{/list}
 	</tbody>

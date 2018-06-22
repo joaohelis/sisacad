@@ -1,0 +1,54 @@
+#{extends 'main.html' /}
+#{set title:'Formulário' /}
+
+%{
+	String tituloAcaoForm = departamento?.id == null? "Cadastrar":"Editar"; 
+	String tituloForm = departamento?.id == null? "Cadastro":"Edição";
+}%
+
+<div class="card mb-3">
+	  <div class="card-header">
+	    <i class="fa fa fa-institution"></i> ${tituloForm} de Departamento</div>
+	  <div class="card-body">
+          
+		<form action="@{Departamentos.salvar}" method="post">
+		   
+		   <input type="hidden" value="${departamento?.id}" name="departamento.id">
+		
+			<div class="form-group">
+			   <label for="nome">Nome:</label>
+			   <input class="form-control" id="nome" type="text" value="${departamento?.nome}" name="projeto.nome">
+			</div>
+			
+			<div class="card mb-3">
+			  <div class="card-header">
+			    <i class="fa fa-fw fa-user"></i> Adicionar professor ao departamento</div>
+			  <div class="card-body">
+				
+				<p><b>Selecione o professor para adicionar:</b></p>
+				
+				<ul id="professores" class="list-group list-group-flush">
+				#{if professores != null}
+					#{list items:professores, as: 'professor'}
+						<li class="list-group-item d-flex justify-content-between align-items-center">
+							<div class="form-check">
+								<div class="form-check">
+								  <input ${(departamento?.professores?.contains(professor))? 'checked': ''} class="form-check-input" type="checkbox" name="professorIDs" value="${professor.id}" id="defaultCheck1">
+								  <label class="form-check-label" for="defaultCheck1">
+								    	${professor.nome}
+								  </label>
+								</div>
+							</div>
+						</li>
+					#{/list}	
+				#{/if}
+			</ul>
+			<br>
+			  </div>
+			</div>						    
+			<input class="btn btn-primary" type="submit" value="${tituloAcaoForm}">
+		</form>
+		<br>
+		<a href="@{Departamentos.listar}">Ver todos os Departamentos</a>
+	</div>
+</div>

@@ -10,6 +10,7 @@
        <thead>
          <tr><th rowspan="1" colspan="1">#ID</th>
          <th rowspan="1" colspan="1">Nome</th>
+         <th rowspan="1" colspan="1">Membros</th>
          <th rowspan="1" colspan="1">Ações</th>
        </thead>
        <tbody> 
@@ -18,6 +19,7 @@
 		<tr role="row">
            <td>${projeto.id}</td>
            <td>${projeto.nome}</td>
+           <td>${projeto.professores.size()}</td>
            <td>
            		<a class="btn btn-info" title='Detalhes' href="@{Projetos.detalhes(projeto.id)}"><i class="fa fa-eye"></i></a>
            		<a class="btn btn-primary" title='Editar' href="@{Projetos.editar(projeto.id)}"><i class="fa fa-edit"></i></a>

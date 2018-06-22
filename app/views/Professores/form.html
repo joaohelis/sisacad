@@ -49,7 +49,7 @@
 			   <select class="form-control col-5" name="professor.departamento.id">
 			   		#{list items:departamentos, as:'departamento'}
 			   			<option value="${departamento.id}" 
-			   			${(professor?.id !=null && professor?.departamento.id == departamento.id)? 'selected':'' }>${departamento.nome}</option>
+			   			${(professor?.id !=null && professor?.departamento?.id == departamento.id)? 'selected':'' }>${departamento.nome}</option>
 			   		#{/list}
 			   </select>
 			</div>

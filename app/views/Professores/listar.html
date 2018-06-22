@@ -15,7 +15,7 @@
        <thead>
          <tr><th rowspan="1" colspan="1">#ID</th>
          <th rowspan="1" colspan="1">Nome</th>
-         <th rowspan="1" colspan="1">E-mail</th>
+         <th rowspan="1" colspan="1">Departamento</th>
          <th>Ações</th>
        </thead>
        <tbody>
@@ -23,7 +23,7 @@
 		<tr role="row">
            <td>${professor.id}</td>
            <td>${professor.nome}</td>
-           <td>${professor.email}</td>
+           <td>${professor.departamento}</td>
            <td>
            		<a class="btn btn-info" title='Detalhes' href="@{Professores.detalhes(professor.id)}"><i class="fa fa-eye"></i></a>
            		<a class="btn btn-primary" title='Editar' href="@{Professores.editar(professor.id)}"><i class="fa fa-edit"></i></a>

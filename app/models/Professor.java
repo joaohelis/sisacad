@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -23,6 +24,7 @@ public class Professor extends Model{
 	public Date dataNascimento;
 	
 	@ManyToOne
+	@JoinColumn(name="departamento_id")
 	public Departamento departamento;
 	
 	@ManyToMany(mappedBy="professores")

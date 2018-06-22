@@ -13,7 +13,8 @@ public class Application extends Controller {
     	long professoresCount = Professor.count();
     	long usuariosCount = Usuario.count();
     	long projetosCount = Projeto.count();
-    	render(professoresCount, usuariosCount, projetosCount);
+    	long departamentosCount = Departamento.count();
+    	render(professoresCount, usuariosCount, projetosCount, departamentosCount);
     }
 
 }
