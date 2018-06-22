@@ -3,7 +3,7 @@
 
 <div class="card mb-3">
   	<div class="card-header">
-    	<i class="fa fa-table"></i> Detalhes do Professor</div>
+    	<i class="fa fa-address-card"></i> Detalhes do Professor</div>
   	<div class="card-body">
   		#{if professor.foto?.exists()}
   			<img height="150px" width="150px" src="@{Professores.fotoProfessor(professor.id)}"><br>
@@ -12,7 +12,34 @@
 		<b>E-mail:</b> ${professor.email}<br>
 		<b>Data de Nascimento:</b> ${professor.dataNascimento?.format()}<br>
 		<b>Departamento:</b> ${professor.departamento}<br>
+		
 		<br>
+		<div class="card mb-3">
+			<div class="card-header">
+		    	<b>Projetos do professor</b>
+		    </div>
+		  	<div class="card-body">
+		  		#{if professor?.projetos}
+				<table class="table table-striped">
+			       	<thead >
+				         <th rowspan="1" colspan="1">Nome do Projeto</th>
+				         <th rowspan="1" colspan="1">Quantidade de Membros</th>
+			       	</thead>
+			       	<tbody> 
+						#{list items:professor.projetos, as:'projeto'}
+						<tr role="row">
+				           <td><a href="@{Projetos.detalhes(projeto.id)}">${projeto.nome}</a></td>
+				           <td>${projeto.professores.size()}</td>
+				        </tr>
+						#{/list}
+					</tbody>
+		    	</table>
+		    	#{/if}
+		    	#{else}
+		    		<p>O professor não está associado a nenhum projeto.</p>
+		    	#{/else}
+			</div>
+		</div>
 		<div class="">
 			<a class="btn btn-primary" href="@{Professores.editar(professor.id)}">Editar</a>
         	<a class="btn btn-danger" href="@{Professores.remover(professor.id)}">Remover</a>

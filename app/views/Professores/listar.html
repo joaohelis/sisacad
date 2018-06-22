@@ -1,15 +1,15 @@
 #{extends 'main.html' /}
-#{set title:'Listagem de Clientes' /}
+#{set title:'Listagem de Professores' /}
 
 <div class="card mb-3">
  <div class="card-header">
-   <i class="fa fa-user"></i> Listagem de Professores</div>
+   <i class="fa fa-address-card"></i> Listagem de Professores</div>
  <div class="card-body">
  
- 	 <form action="@{Professores.buscar}">
- 	 	<input class="form" type="text" name="busca">
- 	 	<input class="btn btn-primary" type="submit" value="buscar">
- 	 </form>
+<!--  	 <form action="@{Professores.buscar}"> -->
+<!--  	 	<input class="form" type="text" name="busca"> -->
+<!--  	 	<input class="btn btn-primary" type="submit" value="buscar"> -->
+<!--  	 </form> -->
     
      <table class="table dataTable" id="">
        <thead>
@@ -25,14 +25,15 @@
            <td>${professor.nome}</td>
            <td>${professor.email}</td>
            <td>
-           		<a class="btn btn-info" href="@{Professores.detalhes(professor.id)}">Detalhes</a>
-           		<a class="btn btn-primary" href="@{Professores.editar(professor.id)}">Editar</a>
-           	  	<a class="btn btn-danger" href="@{Professores.remover(professor.id)}">Remover</a>
+           		<a class="btn btn-info" title='Detalhes' href="@{Professores.detalhes(professor.id)}"><i class="fa fa-eye"></i></a>
+           		<a class="btn btn-primary" title='Editar' href="@{Professores.editar(professor.id)}"><i class="fa fa-edit"></i></a>
+           	  	<a class="btn btn-danger" title='Remover' href="@{Professores.remover(professor.id)}"><i class="fa fa-remove"></i></a>
            	</td>
          </tr>
 	#{/list}
 	</tbody>
     </table>
+    <br>
     <a class="btn btn-info" href="@{Professores.form}">Cadastrar Professor</a>
   </div>
 </div>

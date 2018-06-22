@@ -12,7 +12,8 @@ public class Application extends Controller {
     public static void index() {
     	long professoresCount = Professor.count();
     	long usuariosCount = Usuario.count();
-    	render(professoresCount, usuariosCount);
+    	long projetosCount = Projeto.count();
+    	render(professoresCount, usuariosCount, projetosCount);
     }
 
 }

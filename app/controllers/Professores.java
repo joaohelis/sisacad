@@ -1,11 +1,15 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import annotations.Admin;
+import interceptors.Seguranca;
 import models.Departamento;
 import models.Professor;
+import models.Projeto;
 import play.mvc.Controller;
+import play.mvc.With;
 
 public class Professores extends Controller{
 	
@@ -36,13 +40,18 @@ public class Professores extends Controller{
 	}
 	
 	public static void listar() {
-		List<Professor> professores = Professor.findAll();
+		List<Professor> professores = Professor.findAll(); 
 		render(professores);
 	}
 	
 	public static void remover(Long id) {
-		Professor cliente = Professor.findById(id);
-		cliente.delete();
+		Professor professor = Professor.findById(id);
+		for (Projeto projeto : professor.projetos) {
+			projeto.professores.remove(professor);
+			projeto.save();
+		}
+		professor.refresh();
+		professor.delete();
 		flash.success("Professor removido com sucesso!");
 		listar();
 	}

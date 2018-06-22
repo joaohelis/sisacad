@@ -11,17 +11,23 @@
          <tr><th rowspan="1" colspan="1">#ID</th>
          <th rowspan="1" colspan="1">email</th>
          <th rowspan="1" colspan="1">status</th>
+         <th rowspan="1" colspan="1">Ações</th>
        </thead>
-       <tbody>
+       <tbody> 
+      
 	#{list items:usuarios, as:'usuario'}
 		<tr role="row">
            <td>${usuario.id}</td>
            <td>${usuario.email}</td>
-           <td>${usuario.status}</td>
+           <td><span  ${(usuario?.status == 'ATIVO')? "class='label label-success'": "class='label label-success'"}  ">${usuario.status}</span></td>
+           <td>
+           		<a class="btn btn-primary" title='Editar' href="@{Usuarios.editar(usuario.id)}"><i class="fa fa-edit"></i></a>
+           	</td>
          </tr>
 	#{/list}
 	</tbody>
     </table>
-<!--     <a class="btn btn-info" href="@{Professores.form}">Cadastrar Professor</a> -->
+    <br>
+    <a class="btn btn-info" href="@{Usuarios.form}">Cadastro de Usuário</a>
   </div>
 </div>

@@ -16,11 +16,14 @@ public class Login extends Controller {
 			params.flash();
 			login();
 		}else {
+			session.put("ususario", usuario);
 			Application.index();
 		}
 	}
 	
 	public static void logout() {
+		session.clear();
+		System.out.println("logout");
 		login();
 	}
 

@@ -38,7 +38,7 @@
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-user"></i>
+            <i class="fa fa-fw  fa-address-card"></i>
             <span class="nav-link-text">Professores</span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseComponents">
@@ -49,7 +49,37 @@
               <a href="@{Professores.listar}">Listar</a>
             </li>
           </ul>
-        </li>             
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents-2" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-user"></i>
+            <span class="nav-link-text">Usuários</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseComponents-2">
+            <li>
+              <a href="@{Usuarios.form}">Cadastrar</a>
+            </li>
+            <li>
+              <a href="@{Usuarios.listar}">Listar</a>
+            </li>
+          </ul>
+        </li>  
+        
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents-3" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-bookmark"></i>
+            <span class="nav-link-text">Projetos</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseComponents-3">
+            <li>
+              <a href="@{Projetos.form}">Cadastrar</a>
+            </li>
+            <li>
+              <a href="@{Projetos.listar}">Listar</a>
+            </li>
+          </ul>
+        </li> 
+                    
       </ul>
       <ul class="navbar-nav ml-auto">
       	<li class="nav-item">
@@ -64,6 +94,10 @@
       <div class="row">
         <div class="col-12">
         	<!-- Mensagem de sucesso -->
+        	
+        	<div id="alert">
+			
+			</div>
         	
        		#{if flash.success}
 	       		<div class="alert alert-success">
@@ -90,7 +124,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Copyright © João Hels - IFRN - Campus Pau dos Ferros</small>
+          <small>Copyright © João Hels - IFRN - Campus Pau dos Ferros.</small>
         </div>
       </div>
     </footer>
@@ -139,8 +173,8 @@
    <script src="https://rawgit.com/RobinHerbots/Inputmask/4.x/dist/jquery.inputmask.bundle.js"></script>
    <script src="https://rawgit.com/RobinHerbots/Inputmask/4.x/dist/inputmask/phone-codes/phone.js"></script>
    
+   <script src="@{'/public/javascripts/bootstrap-notify.js'}"></script>
    <script src="@{'/public/javascripts/sisacad.js'}"></script>
-
       
   #{get 'moreScripts' /}
     
@@ -148,4 +182,3 @@
 </body>
 
 </html>
-

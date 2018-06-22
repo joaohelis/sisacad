@@ -1,0 +1,120 @@
+#{extends 'main.html' /}
+#{set title:'Formulário' /}
+
+%{
+	String tituloAcaoForm = projeto.id == null? "Cadastrar":"Editar"; 
+	String tituloForm = projeto.id == null? "Cadastro":"Edição";
+}%
+
+<div class="card mb-3">
+	  <div class="card-header">
+	    <i class="fa fa-bookmark"></i> ${tituloForm} de Usuário</div>
+	  <div class="card-body">
+          
+		<form action="@{Projetos.salvar}" method="post">
+		   
+		   <input type="hidden" value="${projeto?.id}" name="projeto.id">
+		
+			<div class="form-group">
+			   <label for="nome">Nome:</label>
+			   <input class="form-control" id="nome" type="text" value="${projeto?.nome}" name="projeto.nome">
+			</div>
+			
+			<div class="form-group">
+			  <label for="descricao">Descricao:</label>
+			  <textarea name="projeto.descricao" class="form-control" rows="5" id="descricao">${projeto?.descricao}</textarea>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12 col-xs-4">
+					<div class="form-group">
+					   <label for="professores">Professores</label>
+					   <select id="sel-professor" class="form-control col-5"">
+					   		#{list items:professores, as:'professor'}
+					   			<option value="${professor.id}">${professor.nome}</option>
+					   		#{/list}
+					   </select>
+					</div>
+				</div>
+				<div class="col-md-4 col-xs-4">
+					<div class="form-group">
+						<p class="btn btn-danger" id="btn2">Adicionar Professor</p>
+					</div>
+				</div>
+			</div>
+			<ul id="professores">
+				#{if projeto != null && projeto.professores != null}
+					#{list items:projeto.professores, as: 'professor'}
+						<li id="li-prof-${professor.id}" >
+							<input id='prof-${professor.id}' type='hidden' name='professorIDs' value='${professor.id}'>
+							${professor.nome} | 
+							
+							<button type="button" class="btn btn-default btn-sm del-prof" value="${professor.id}">
+          						<span class="glyphicon glyphicon-remove"></span> Remover 
+        					</button>
+						</li>
+					#{/list}	
+				#{/if}
+			</ul>
+			<input class="btn btn-primary" type="submit" value="${tituloAcaoForm}">
+		</form>
+		
+<!-- 		#{verProfessores /} -->
+	</div>
+</div>
+
+
+<script>
+window.onload = function(){
+	  
+    $("#btn2").click(function(){
+    	
+    	var professorAdicionado = function(idProfessor){
+    		var inputHiddenProf = $("#prof-"+idProfessor);
+    		console.log(inputHiddenProf);
+    		console.log(inputHiddenProf.lenght);
+    		return (inputHiddenProf.val());
+    	};
+    	
+    	var selectProfessor = $('#sel-professor').find(":selected");
+    	var nomeProfessor = selectProfessor.text();
+    	var idProfessor = selectProfessor.val();
+    	
+    	var html = "<li id='li-prof-" + idProfessor + "' > " +
+		    		  	"<input id='prof-" + idProfessor + "' type='hidden' name='professorIDs' value='" + idProfessor + "'> " +
+		    		  		nomeProfessor +  "| " +
+		    		  		"<button type='button' class='del-prof btn btn-default btn-sm' value='" + idProfessor + "'>" +
+		    		  		"<span class='glyphicon glyphicon-remove'></span> Remover " +
+		    		  		"</button>" +
+		    	   "</li>";
+    	
+		console.log(idProfessor);
+		console.log(professorAdicionado(idProfessor));
+		
+		if(!professorAdicionado(idProfessor)){
+			$("#professores").append(html);
+		}else{
+			$.notify('O professor <b>' + nomeProfessor + '</b> já foi adicionado');
+		}
+        
+        
+        $(".del-prof").click(function(){
+        	var idProfessor = $(this).attr("value");
+        	$("#li-prof-" + idProfessor).remove();
+        });
+    });
+    
+    
+    $(".del-prof").click(function(){
+    	var idProfessor = $(this).attr("value");
+    	$("#li-prof-" + idProfessor).remove();
+    });
+    
+    $.notifyDefaults({
+    	type: 'success',
+    	allow_dismiss: true,
+    });
+    
+};
+
+</script>
