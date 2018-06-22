@@ -8,7 +8,7 @@
 
 <div class="card mb-3">
 	  <div class="card-header">
-	    <i class="fa fa-bookmark"></i> ${tituloForm} de Usuário</div>
+	    <i class="fa fa-bookmark"></i> ${tituloForm} de Projeto</div>
 	  <div class="card-body">
           
 		<form action="@{Projetos.salvar}" method="post">
@@ -25,37 +25,47 @@
 			  <textarea name="projeto.descricao" class="form-control" rows="5" id="descricao">${projeto?.descricao}</textarea>
 			</div>
 			
-			<div class="row">
-				<div class="col-md-12 col-xs-4">
-					<div class="form-group">
-					   <label for="professores">Professores</label>
-					   <select id="sel-professor" class="form-control col-5"">
+			<div class="card mb-3">
+			  <div class="card-header">
+			    <i class="fa fa-fw fa-user"></i> Adicionar professor ao projeto</div>
+			  <div class="card-body">
+				<div class="form-group">
+					<label for="professores">Selecione o professor para adicionar:</label>
+					<div class="input-group mb-3">	
+						
+					   	<select id="sel-professor" class="form-control"">  
 					   		#{list items:professores, as:'professor'}
 					   			<option value="${professor.id}">${professor.nome}</option>
 					   		#{/list}
-					   </select>
+					   	</select>
+					
+						<div class="input-group-append">	
+							<button type="button" class="btn btn-success" id="add-professor">Adicionar Professor</button>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-4 col-xs-4">
-					<div class="form-group">
-						<p class="btn btn-danger" id="btn2">Adicionar Professor</p>
-					</div>
-				</div>
-			</div>
-			<ul id="professores">
+				<br>
+				
+				<p><b>PROFESSORES ASSOCIADOS AO PROJETO:</b></p>
+				
+				<ul id="professores" class="list-group list-group-flush">
 				#{if projeto != null && projeto.professores != null}
 					#{list items:projeto.professores, as: 'professor'}
-						<li id="li-prof-${professor.id}" >
+						<li id="li-prof-${professor.id}" class="list-group-item d-flex justify-content-between align-items-center">
 							<input id='prof-${professor.id}' type='hidden' name='professorIDs' value='${professor.id}'>
-							${professor.nome} | 
 							
-							<button type="button" class="btn btn-default btn-sm del-prof" value="${professor.id}">
+							${professor.nome} 
+														
+							<button type="button" class="btn btn-danger btn-sm del-prof" value="${professor.id}">
           						<span class="glyphicon glyphicon-remove"></span> Remover 
         					</button>
 						</li>
 					#{/list}	
 				#{/if}
 			</ul>
+			<br>
+			  </div>
+			</div>						    
 			<input class="btn btn-primary" type="submit" value="${tituloAcaoForm}">
 		</form>
 		
@@ -67,7 +77,7 @@
 <script>
 window.onload = function(){
 	  
-    $("#btn2").click(function(){
+    $("#add-professor").click(function(){
     	
     	var professorAdicionado = function(idProfessor){
     		var inputHiddenProf = $("#prof-"+idProfessor);
@@ -80,10 +90,10 @@ window.onload = function(){
     	var nomeProfessor = selectProfessor.text();
     	var idProfessor = selectProfessor.val();
     	
-    	var html = "<li id='li-prof-" + idProfessor + "' > " +
+    	var html = "<li id='li-prof-" + idProfessor + "' class='list-group-item d-flex justify-content-between align-items-center'> " +
 		    		  	"<input id='prof-" + idProfessor + "' type='hidden' name='professorIDs' value='" + idProfessor + "'> " +
-		    		  		nomeProfessor +  "| " +
-		    		  		"<button type='button' class='del-prof btn btn-default btn-sm' value='" + idProfessor + "'>" +
+		    		  		nomeProfessor +
+		    		  		"<button type='button' class='del-prof btn btn-danger btn-sm' value='" + idProfessor + "'>" +
 		    		  		"<span class='glyphicon glyphicon-remove'></span> Remover " +
 		    		  		"</button>" +
 		    	   "</li>";
@@ -94,7 +104,7 @@ window.onload = function(){
 		if(!professorAdicionado(idProfessor)){
 			$("#professores").append(html);
 		}else{
-			$.notify('O professor <b>' + nomeProfessor + '</b> já foi adicionado');
+			$.notify('O professor <b>' + nomeProfessor + '</b> já foi adicionado.');
 		}
         
         
