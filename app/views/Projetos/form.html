@@ -106,16 +106,10 @@ window.onload = function(){
 		}else{
 			$.notify('O professor <b>' + nomeProfessor + '</b> já foi adicionado.');
 		}
-        
-        
-        $(".del-prof").click(function(){
-        	var idProfessor = $(this).attr("value");
-        	$("#li-prof-" + idProfessor).remove();
-        });
+     
     });
     
-    
-    $(".del-prof").click(function(){
+    $(document).on('click', '.del-prof', function () {
     	var idProfessor = $(this).attr("value");
     	$("#li-prof-" + idProfessor).remove();
     });
@@ -124,7 +118,6 @@ window.onload = function(){
     	type: 'success',
     	allow_dismiss: true,
     });
-    
 };
 
 </script>

@@ -17,7 +17,7 @@
 	#{list items:departamentos, as:'departamento'}
 		<tr role="row">
            <td>${departamento.id}</td>
-           <td>${departamento.nome}</td>
+           <td><a href="@{Departamentos.detalhes(departamento.id)}">${departamento.nome}</a></td>
            <td>${departamento.professores.size()}</td>
            <td>
            		<a class="btn btn-info" title='Detalhes' href="@{Departamentos.detalhes(departamento.id)}"><i class="fa fa-eye"></i></a>

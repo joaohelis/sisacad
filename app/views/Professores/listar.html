@@ -22,7 +22,7 @@
 	#{list items:professores, as:'professor'}
 		<tr role="row">
            <td>${professor.id}</td>
-           <td>${professor.nome}</td>
+           <td><a href="@{Professores.detalhes(professor.id)}">${professor.nome}</a></td>
            <td>${professor.departamento}</td>
            <td>
            		<a class="btn btn-info" title='Detalhes' href="@{Professores.detalhes(professor.id)}"><i class="fa fa-eye"></i></a>
