@@ -12,12 +12,11 @@ public class Departamento extends Model{
 
 	public String nome;
 	
+	@OneToMany(mappedBy="departamento")
+	public List<Professor> professores;
+	
 	@Override
 	public String toString() {
 		return nome;
 	}
-	
-	@OneToMany(mappedBy="departamento")
-	public List<Professor> professores;
-	
 }

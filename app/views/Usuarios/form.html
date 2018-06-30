@@ -2,8 +2,8 @@
 #{set title:'Formulário' /}
 
 %{
-	String tituloAcaoForm = usuario.id == null? "Cadastrar":"Editar"; 
-	String tituloForm = usuario.id == null? "Cadastro":"Edição";
+	String tituloAcaoForm = usuario?.id == null? "Cadastrar":"Editar"; 
+	String tituloForm = usuario?.id == null? "Cadastro":"Edição";
 }%
 
 <div class="card mb-3">
@@ -17,12 +17,21 @@
 		   
 			<div class="form-group">
 			   <label for="email">Email</label>
-			   <input class="form-control" id="email" type="text" value="${usuario?.email}" name="usuario.email">
+			   <input class="form-control #{ifError 'usuario.email'} is-invalid#{/ifError}" 
+			   id="email" type="text" value="${usuario?.email}" name="usuario.email">
+			   #{ifError 'usuario.email'}
+        	   <div class="invalid-feedback">#{error 'usuario.email' /}</div>  	   		 
+        	   #{/ifError}
 			</div>
 			
 			<div class="form-group">
 			   <label for="senha">Senha</label>
-			   <input class="form-control" id="senha" type="text" value="${usuario?.senha}" name="usuario.senha">
+			   <input class="form-control #{ifError 'usuario.senha'} is-invalid#{/ifError}" 
+			   id="senha" type="text" value="${usuario?.senha}" name="usuario.senha">
+			  
+        	   #{ifError 'usuario.senha'}
+        	   <div class="invalid-feedback">#{error 'usuario.senha' /}</div>  	   		 
+        	   #{/ifError}
 			</div>
 			
 			<div class="form-group">

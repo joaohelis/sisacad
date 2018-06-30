@@ -1,25 +1,31 @@
 package controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import annotations.Admin;
-import interceptors.Seguranca;
 import models.Departamento;
 import models.Professor;
 import models.Projeto;
+import play.data.validation.Valid;
+import play.mvc.Before;
 import play.mvc.Controller;
-import play.mvc.With;
 
 public class Professores extends Controller{
 	
-	public static void form(Professor professor) {
+	public static void form() {
 		List<Departamento> departamentos = Departamento.findAll();
-		render(professor, departamentos);
+		render(departamentos);
 	}
 	
-	public static void salvar(Professor professor) {
-		System.out.println(params.get("excluirFoto"));
+	public static void salvar(@Valid Professor professor) {
+		
+		System.out.println(validation.hasErrors());
+		
+		if(validation.hasErrors()) {
+			validation.keep();
+			params.flash();
+			form();
+		}
+		
 		if(params.get("excluirFoto") != null) {
 			professor.foto.getFile().delete();
 		}

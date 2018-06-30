@@ -2,8 +2,8 @@
 #{set title:'Formulário' /}
 
 %{
-	String tituloAcaoForm = projeto.id == null? "Cadastrar":"Editar"; 
-	String tituloForm = projeto.id == null? "Cadastro":"Edição";
+	String tituloAcaoForm = projeto?.id == null? "Cadastrar":"Editar"; 
+	String tituloForm = projeto?.id == null? "Cadastro":"Edição";
 }%
 
 <div class="card mb-3">
@@ -17,12 +17,12 @@
 		
 			<div class="form-group">
 			   <label for="nome">Nome:</label>
-			   <input class="form-control" id="nome" type="text" value="${projeto?.nome}" name="projeto.nome">
+			   <input class="form-control" id="nome" type="text" value="${projeto == null ? flash['projeto.nome'] : projeto.nome}" name="projeto.nome">
 			</div>
 			
 			<div class="form-group">
 			  <label for="descricao">Descricao:</label>
-			  <textarea name="projeto.descricao" class="form-control" rows="5" id="descricao">${projeto?.descricao}</textarea>
+			  <textarea name="projeto.descricao" class="form-control" rows="5" id="descricao">${projeto == null ? flash['projeto.descricao'] : projeto.descricao}</textarea>
 			</div>
 			
 			<div class="card mb-3">
@@ -76,15 +76,15 @@
 
 <script>
 window.onload = function(){
+	
+	// Verifica se o professor já foi adicionado
+	var professorAdicionado = function(idProfessor){
+		var inputHiddenProf = $("#prof-"+idProfessor);
+		return (inputHiddenProf.val());
+	};
 	  
+	// Adiciona o professor caso ele ainda não tenha sido adicionado
     $("#add-professor").click(function(){
-    	
-    	var professorAdicionado = function(idProfessor){
-    		var inputHiddenProf = $("#prof-"+idProfessor);
-    		console.log(inputHiddenProf);
-    		console.log(inputHiddenProf.lenght);
-    		return (inputHiddenProf.val());
-    	};
     	
     	var selectProfessor = $('#sel-professor').find(":selected");
     	var nomeProfessor = selectProfessor.text();
@@ -97,16 +97,12 @@ window.onload = function(){
 		    		  		"<span class='glyphicon glyphicon-remove'></span> Remover " +
 		    		  		"</button>" +
 		    	   "</li>";
-    	
-		console.log(idProfessor);
-		console.log(professorAdicionado(idProfessor));
 		
 		if(!professorAdicionado(idProfessor)){
 			$("#professores").append(html);
 		}else{
 			$.notify('O professor <b>' + nomeProfessor + '</b> já foi adicionado.');
 		}
-     
     });
     
     $(document).on('click', '.del-prof', function () {

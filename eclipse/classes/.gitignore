@@ -1,4 +1,10 @@
+/ApplicationTest.class
+/BasicTest.class
+/DocViewerPlugin.class
+/annotations/
 /controllers/
-/jobs/
+/enums/
+/helpers/
 /interceptors/
+/jobs/
 /models/

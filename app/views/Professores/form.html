@@ -2,8 +2,8 @@
 #{set title:'Formulário' /}
 
 %{
-	String tituloAcaoForm = professor.id == null? "Cadastrar":"Editar"; 
-	String tituloForm = professor.id == null? "Cadastro":"Edição";
+	String tituloAcaoForm = professor?.id == null? "Cadastrar":"Editar"; 
+	String tituloForm = professor?.id == null? "Cadastro":"Edição";
 }%
 
 <div class="card mb-3">
@@ -15,7 +15,7 @@
 		   
 		   <input type="hidden" value="${professor?.id}" name="professor.id">
 		   
-		   #{if professor.foto?.exists()}
+		   #{if professor?.foto?.exists()}
 		   	<img height="150px" width="150px" src="@{Professores.fotoProfessor(professor.id)}"><br>
 		   	<div class="form-group">
 	            <div class="form-check">
@@ -31,27 +31,45 @@
 		   
 			<div class="form-group">
 			   <label for="nome">Nome</label>
-			   <input class="form-control" id="nome" type="text" value="${professor?.nome}" name="professor.nome">
+			   <input class="form-control #{ifError 'professor.nome'} is-invalid#{/ifError}"
+			    id="nome" type="text" value="${professor == null ? flash['professor.nome'] : professor.nome}" name="professor.nome">
+			   #{ifError 'professor.nome'}
+        	   <div class="invalid-feedback">#{error 'professor.nome' /}</div>  	   		 
+        	   #{/ifError}
 			</div>
+			
 			
 			<div class="form-group">
 			   <label for="email">Email</label>
-			   <input class="form-control" id="email" type="text" value="${professor?.email}" name="professor.email">
+			   <input class="form-control #{ifError 'professor.email'} is-invalid#{/ifError}" 
+			   id="email" type="text" value="${professor == null ? flash['professor.email'] : professor.email}" name="professor.email">
+			   #{ifError 'professor.email'}
+        	   <div class="invalid-feedback">#{error 'professor.email' /}</div>  	   		 
+        	   #{/ifError}
 			</div>
 			
 		    <div class="form-group">
-			 	<label>Data de Nascimento</label>
-			 	<input id="datepicker" class="datepicker col-5 date" name="professor.dataNascimento" value="${professor?.dataNascimento?.format()}"/>
+			 	<label for="datepicker">Data de Nascimento</label>
+			 	<input id="datepicker" class="datepicker col-5 date #{ifError 'professor.dataNascimento'} is-invalid#{/ifError}" 
+			 	name="professor.dataNascimento" value="${professor == null ? flash['professor.dataNascimento'] : professor?.dataNascimento}"/>
+				#{ifError 'professor.dataNascimento'}
+        	   	<div class="invalid-feedback">#{error 'professor.dataNascimento' /}</div>  	   		 
+        	   	#{/ifError}
 			</div>
 
 			<div class="form-group">
 			   <label for="departamento">Departamento</label>
-			   <select class="form-control col-5" name="professor.departamento.id">
+			   <select class="form-control col-5 #{ifError 'professor.departamento'} is-invalid#{/ifError}" 
+			   		   name="professor.departamento.id">
+			   		<option value> -- Selecione um departamento -- </option>
 			   		#{list items:departamentos, as:'departamento'}
-			   			<option value="${departamento.id}" 
-			   			${(professor?.id !=null && professor?.departamento?.id == departamento.id)? 'selected':'' }>${departamento.nome}</option>
+			   			<option value="${departamento.id}" class="${flash['professor.departamento.id']}"
+			   			${(professor?.departamento?.id == departamento.id || flash['professor.departamento.id'].equals(departamento.id.toString().toString())) ? 'selected':''}>${departamento.nome}</option>	 
 			   		#{/list}
 			   </select>
+			   #{ifError 'professor.departamento'}
+        	   	<div class="invalid-feedback">#{error 'professor.departamento' /}</div>  	   		 
+        	   	#{/ifError}
 			</div>
 			
 			<input class="btn btn-primary" type="submit" value="${tituloAcaoForm}">

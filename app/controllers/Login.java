@@ -16,7 +16,7 @@ public class Login extends Controller {
 			params.flash();
 			login();
 		}else {
-			session.put("usuario", usuario);
+			session.put("usuario", usuario.email);
 			Application.index();
 		}
 	}

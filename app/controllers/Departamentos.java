@@ -19,22 +19,18 @@ public class Departamentos extends Controller {
 	
 	public static void salvar(Departamento departamento, List<String> professorIDs) {
 		
-		String IDs = "(";
-		if(professorIDs != null) {
-			IDs += String.join(", ", professorIDs);	
-		}
-		IDs +=  ")";
-		
-		if(professorIDs != null) {	
-			String query = "select p from Professor p where p.id in " + IDs;			
-			List<Professor> professoresAssociados = Professor.find(query).fetch();
-			for(Professor professor: professoresAssociados) {
-				professor.departamento = departamento;
-				professor.save();
-			}
+		String IDs = "-1";
+		if(professorIDs != null)
+			IDs = String.join(", ", professorIDs);
+			
+		String query = "select p from Professor p where p.id in (" + IDs + ")";			
+		List<Professor> professoresAssociados = Professor.find(query).fetch();
+		for(Professor professor: professoresAssociados) {
+			professor.departamento = departamento;
+			professor.save();
 		}
 		
-		String query = "select p from Professor p where p.id not in " + IDs;
+		query = "select p from Professor p where p.id not in ("+ IDs + ")";	
 		System.out.println(query);
 		List<Professor> professoresNaoAssociado = Professor.find(query).fetch();
 		for(Professor professor: professoresNaoAssociado) {

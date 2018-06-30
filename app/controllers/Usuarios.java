@@ -3,17 +3,17 @@ package controllers;
 import java.util.List;
 
 import enums.Status;
-import models.Departamento;
-import models.Professor;
 import models.Usuario;
+import play.data.validation.Valid;
 import play.mvc.Controller;
 
 public class Usuarios extends Controller{
 	
 	
-	public static void form(Usuario usuario) {
+	public static void form() {
 		Status[] status = Status.values();
-		render(usuario, status);
+		int a = 1;
+		render(a, status);
 	}
 	
 	public static void listar() {
@@ -21,7 +21,12 @@ public class Usuarios extends Controller{
 		render(usuarios);
 	}
 	
-	public static void salvar(Usuario usuario) {
+	public static void salvar(@Valid Usuario usuario) {
+		if(validation.hasErrors()) {
+			validation.keep();
+			params.flash();
+			form();
+		}
 		usuario.save();
 		flash.success("Usuário salvo com sucesso!");
 		listar();
