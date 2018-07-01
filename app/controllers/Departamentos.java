@@ -8,6 +8,7 @@ import org.apache.ivy.osgi.core.BundleInfoAdapter.ProfileNotFoundException;
 import models.Departamento;
 import models.Professor;
 import models.Projeto;
+import play.Play;
 import play.mvc.Controller;
 
 public class Departamentos extends Controller {

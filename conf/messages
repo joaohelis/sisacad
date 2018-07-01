@@ -1,5 +1,15 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+
+# For use in JavaExtensions.since tag
+since.seconds = %s segundo%s atrás
+since.minutes = %s minuto%s atrás
+since.hours   = %s hora%s atrás
+since.days    = %s dia%s atrás
+since.months  = %s mes%es atrás
+since.years   = %s ano%s atrás
+since.format  = dd/MM/yyyy
+
 validation.required = O campo não pode ser vazio
 validation.email = Informe um e-mail válido

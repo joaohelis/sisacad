@@ -51,7 +51,7 @@
 		    <div class="form-group">
 			 	<label for="datepicker">Data de Nascimento</label>
 			 	<input id="datepicker" class="datepicker col-5 date #{ifError 'professor.dataNascimento'} is-invalid#{/ifError}" 
-			 	name="professor.dataNascimento" value="${professor == null ? flash['professor.dataNascimento'] : professor?.dataNascimento}"/>
+			 	name="professor.dataNascimento" value="${professor == null ? flash['professor.dataNascimento'] : professor?.dataNascimento?.format('dd/MM/yyyy')}"/>
 				#{ifError 'professor.dataNascimento'}
         	   	<div class="invalid-feedback">#{error 'professor.dataNascimento' /}</div>  	   		 
         	   	#{/ifError}
