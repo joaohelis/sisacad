@@ -2,4 +2,9 @@
 
 require:
     - play 1.4.1
-    - oraclejdk8
+	- oraclejdk8
+  - openjdk8
+
+jdk:
+  - oraclejdk8
+  - openjdk8
