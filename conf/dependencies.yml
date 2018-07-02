@@ -1,11 +1,5 @@
 # Application dependencies
 
 require:
-    - play 1.4.4
+    - play 1.4.1
     - OpenJDK 1.8
-
-jdk:
-  - oraclejdk8
-  - openjdk8
-- OpenJDK 1.8
-
